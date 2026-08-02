@@ -47,3 +47,30 @@ function generateBoard(){
 
     return board;
 }
+const boardDiv=document.getElementById("board");
+
+function drawBoard(){
+
+    boardDiv.innerHTML="";
+
+    const board=generateBoard();
+
+    for(let r=0;r<4;r++){
+
+        for(let c=0;c<4;c++){
+
+            const cell=document.createElement("div");
+
+            cell.className="cell";
+
+            cell.textContent=symbols[board[r][c]];
+
+            boardDiv.appendChild(cell);
+
+        }
+
+    }
+
+}
+
+drawBoard();
