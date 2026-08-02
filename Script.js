@@ -40,7 +40,44 @@ function shuffle(board){
     return board;
 }
 
+
 //=========================
+//=========================
+document.getElementById("check").onclick = function () {
+
+    let correct = true;
+
+    document.querySelectorAll(".cell").forEach(cell => {
+
+        let r = Number(cell.dataset.row);
+        let c = Number(cell.dataset.col);
+
+        if (currentBoard[r][c] !== answerBoard[r][c]) {
+
+            cell.style.background = "#ffb3b3"; // قرمز
+            correct = false;
+
+        } else {
+
+            cell.style.background = "#b8ffb8"; // سبز
+
+        }
+
+    });
+
+    if (correct) {
+
+        document.getElementById("message").innerHTML =
+            "🎉 آفرین! جدول را درست کامل کردی. 🌟";
+
+    } else {
+
+        document.getElementById("message").innerHTML =
+            "😊 چند خانه اشتباه است، دوباره تلاش کن.";
+
+    }
+
+}
 function newGame(){
 
     answerBoard = shuffle(copyBoard(solvedBoard));
