@@ -1,0 +1,63 @@
+.board{
+
+display:grid;
+
+grid-template-columns:repeat(4,90px);
+
+grid-template-rows:repeat(4,90px);
+
+margin:auto;
+
+width:max-content;
+
+}
+
+.cell{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:45px;
+
+border:2px solid #555;
+
+background:white;
+
+cursor:pointer;
+
+}
+
+/* خطوط ضخیم پنجره‌های 2×2 */
+
+.cell:nth-child(4n+1){
+
+border-left:4px solid black;
+
+}
+
+.cell:nth-child(-n+4){
+
+border-top:4px solid black;
+
+}
+
+.cell:nth-child(2),
+.cell:nth-child(6),
+.cell:nth-child(10),
+.cell:nth-child(14){
+
+border-right:4px solid black;
+
+}
+
+.cell:nth-child(9),
+.cell:nth-child(10),
+.cell:nth-child(11),
+.cell:nth-child(12){
+
+border-top:4px solid black;
+
+}
