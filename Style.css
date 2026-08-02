@@ -81,3 +81,16 @@ border-top:4px solid black;
 .piece:hover{
     transform:scale(1.1);
 }
+#message{
+
+    margin-top:20px;
+
+    font-size:28px;
+
+    color:#1b5e20;
+
+    font-weight:bold;
+
+    text-align:center;
+
+}
