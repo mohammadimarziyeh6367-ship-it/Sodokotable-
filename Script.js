@@ -1,59 +1,78 @@
-// چهار نماد بازی
 const symbols = ["🍎", "🐱", "⭐", "🚗"];
 
-// جدول پایه معتبر
-const baseBoard = [
+const solvedBoard = [
     [0,1,2,3],
     [2,3,0,1],
     [1,0,3,2],
     [3,2,1,0]
 ];
 
-// کپی جدول
+let currentBoard = [];
+let answerBoard = [];
+let selectedCell = null;
+
+//=========================
 function copyBoard(board){
     return board.map(r=>[...r]);
 }
 
-// جابجایی دو سطر
-function swapRows(board,r1,r2){
-    [board[r1],board[r2]]=[board[r2],board[r1]];
-}
+//=========================
+function shuffle(board){
 
-// جابجایی دو ستون
-function swapCols(board,c1,c2){
-    for(let i=0;i<4;i++){
-        [board[i][c1],board[i][c2]]=[board[i][c2],board[i][c1]];
+    if(Math.random()>0.5)
+        [board[0],board[1]]=[board[1],board[0]];
+
+    if(Math.random()>0.5)
+        [board[2],board[3]]=[board[3],board[2]];
+
+    if(Math.random()>0.5){
+
+        for(let i=0;i<4;i++)
+            [board[i][0],board[i][1]]=[board[i][1],board[i][0]];
     }
-}
 
-// تولید جدول جدید
-function generateBoard(){
+    if(Math.random()>0.5){
 
-    let board = copyBoard(baseBoard);
-
-    // جابجایی سطرهای داخل هر گروه
-    if(Math.random()>0.5)
-        swapRows(board,0,1);
-
-    if(Math.random()>0.5)
-        swapRows(board,2,3);
-
-    // جابجایی ستون‌های داخل هر گروه
-    if(Math.random()>0.5)
-        swapCols(board,0,1);
-
-    if(Math.random()>0.5)
-        swapCols(board,2,3);
+        for(let i=0;i<4;i++)
+            [board[i][2],board[i][3]]=[board[i][3],board[i][2]];
+    }
 
     return board;
 }
-const boardDiv=document.getElementById("board");
 
+//=========================
+function newGame(){
+
+    answerBoard = shuffle(copyBoard(solvedBoard));
+
+    currentBoard = copyBoard(answerBoard);
+
+    let removed = 0;
+
+    while(removed<6){
+
+        let r=Math.floor(Math.random()*4);
+        let c=Math.floor(Math.random()*4);
+
+        if(currentBoard[r][c]!==null){
+
+            currentBoard[r][c]=null;
+            removed++;
+
+        }
+
+    }
+
+    drawBoard();
+
+}
+
+//=========================
 function drawBoard(){
 
-    boardDiv.innerHTML="";
+    const board=document.getElementById("board");
 
-    const board=generateBoard();
+    board.innerHTML="";
 
     for(let r=0;r<4;r++){
 
@@ -63,9 +82,32 @@ function drawBoard(){
 
             cell.className="cell";
 
-            cell.textContent=symbols[board[r][c]];
+            cell.dataset.row=r;
+            cell.dataset.col=c;
 
-            boardDiv.appendChild(cell);
+            if(currentBoard[r][c]==null){
+
+                cell.textContent="";
+
+                cell.classList.add("empty");
+
+                cell.onclick=()=>{
+
+                    document.querySelectorAll(".cell").forEach(x=>x.classList.remove("selected"));
+
+                    selectedCell=cell;
+
+                    cell.classList.add("selected");
+
+                }
+
+            }else{
+
+                cell.textContent=symbols[currentBoard[r][c]];
+
+            }
+
+            board.appendChild(cell);
 
         }
 
@@ -73,4 +115,31 @@ function drawBoard(){
 
 }
 
-drawBoard();
+//=========================
+document.querySelectorAll(".piece").forEach((btn,index)=>{
+
+    btn.onclick=()=>{
+
+        if(selectedCell==null)
+            return;
+
+        let r=selectedCell.dataset.row;
+        let c=selectedCell.dataset.col;
+
+        currentBoard[r][c]=index;
+
+        selectedCell.textContent=symbols[index];
+
+        selectedCell.classList.remove("empty");
+        selectedCell.classList.remove("selected");
+
+        selectedCell=null;
+
+    }
+
+});
+
+//=========================
+document.getElementById("newGame").onclick=newGame;
+
+newGame();
