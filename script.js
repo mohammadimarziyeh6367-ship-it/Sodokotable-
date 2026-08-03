@@ -200,6 +200,6 @@ document.getElementById("startGame").onclick = function(){
 
     document.getElementById("game").style.display="block";
 
-    newGame();
+
 
 }
