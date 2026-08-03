@@ -94,3 +94,36 @@ border-top:4px solid black;
     text-align:center;
 
 }
+.login{
+
+    text-align:center;
+
+    margin:30px;
+
+}
+
+.login input{
+
+    width:250px;
+
+    padding:12px;
+
+    font-size:20px;
+
+    border-radius:10px;
+
+}
+
+.login button{
+
+    padding:12px 30px;
+
+    font-size:20px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+}
