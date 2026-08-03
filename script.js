@@ -180,3 +180,26 @@ document.querySelectorAll(".piece").forEach((btn,index)=>{
 document.getElementById("newGame").onclick=newGame;
 
 newGame();
+document.getElementById("startGame").onclick = function(){
+
+    const name =
+        document.getElementById("studentName").value.trim();
+
+    if(name===""){
+
+        alert("لطفاً نام زیبایت را واردکن🤗");
+
+        return;
+
+    }
+
+    document.getElementById("welcome").innerHTML =
+        "🥰 خوش آمدی " + name;
+
+    document.querySelector(".login").style.display="none";
+
+    document.getElementById("game").style.display="block";
+
+    newGame();
+
+}
