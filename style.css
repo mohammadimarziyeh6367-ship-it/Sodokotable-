@@ -715,3 +715,10 @@ body {
         font-size: 27px;
     }
 }
+.creator-credit {
+    margin-top: 3px;
+    text-align: center;
+    font-size: 11px;
+    color: #607d8b;
+    font-family: Arial, Tahoma, sans-serif;
+}
