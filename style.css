@@ -302,20 +302,17 @@ body {
    جدول سودوکو ۴×۴
    چهار پنجره‌ی ۲×۲
 ========================================= */
-
 .board {
     width: min(82vw, 360px);
     aspect-ratio: 1 / 1;
 
     display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
 
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-
-    background: #ffffff;
+    background: white;
 
     border: 5px solid #4b287d;
-
     border-radius: 14px;
 
     overflow: hidden;
@@ -323,26 +320,7 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
 }
 
-
-/* هر پنجره ۲×۲ */
-
-.sudoku-box {
-
-    display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-
-    border: 3px solid #4b287d;
-
-    background: white;
-}
-
-
-/* خانه‌های داخل پنجره */
-
-.sudoku-box .cell {
-
+.cell {
     width: 100%;
     height: 100%;
 
@@ -351,7 +329,6 @@ body {
     background: white;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
@@ -360,46 +337,47 @@ body {
     cursor: pointer;
 
     font-family: Arial, sans-serif;
+}
 
-    transition: 0.15s;
+
+/* خط ضخیم عمودی بین دو پنجره */
+
+.cell:nth-child(4n + 3) {
+    border-right: 4px solid #4b287d;
+}
+
+
+/* خط ضخیم افقی بین دو پنجره */
+
+.cell:nth-child(n + 5):nth-child(-n + 8) {
+    border-top: 4px solid #4b287d;
 }
 
 
 /* خانه‌های ثابت */
 
-.sudoku-box .cell.fixed {
-
+.cell.fixed {
     background: #f0e7ff;
-
     cursor: default;
 }
 
 
-/* پاسخ درست */
+/* جواب درست */
 
-.sudoku-box .cell.correct {
-
+.cell.correct {
     background: #65d68a;
-
     color: white;
-
     border-color: #249447;
 }
 
 
-/* پاسخ اشتباه */
+/* جواب اشتباه */
 
-.sudoku-box .cell.wrong {
-
+.cell.wrong {
     background: #ff5c5c;
-
     color: white;
-
     border-color: #d62828;
-
-    animation: wrongAnimation 0.3s;
-} 
-
+}
 /* ========================================
    شکل‌ها
 ======================================== */
