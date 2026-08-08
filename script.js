@@ -1,8 +1,23 @@
-// ========================================
-// جدول شگفت انگیز - سودوکوی کلاس اول
-// ========================================
+// ============================================================
+// 🧩 جدول شگفت‌انگیز
+// بازی آموزشی سودوکوی ۴×۴ برای کلاس اول
+// طراحی و تولید محتوای آموزشی: مرضیه محمدی
+// ============================================================
+
+
+// ============================================================
+// 1. تنظیمات اصلی بازی
+// ============================================================
 
 const symbols = ["🍎", "🐱", "⭐", "🚗"];
+
+const BOARD_SIZE = 4;
+const EMPTY_CELLS = 7;
+
+
+// ============================================================
+// 2. وضعیت بازی
+// ============================================================
 
 let solution = [];
 let puzzle = [];
@@ -10,55 +25,178 @@ let puzzle = [];
 let selectedSymbol = null;
 
 
-// ========================================
-// شروع بازی
-// ========================================
+// ============================================================
+// 3. عناصر صفحه
+// ============================================================
 
-document.getElementById("startGame").addEventListener("click", function () {
+const startGameButton = document.getElementById("startGame");
+const studentNameInput = document.getElementById("studentName");
 
-    const name = document
-        .getElementById("studentName")
-        .value
-        .trim();
+const welcomePage = document.querySelector(".welcome");
+const gamePage = document.getElementById("game");
 
-    if (name === "") {
-        alert("🥰 لطفاً نام زیبایت را وارد کن");
+const welcomeMessage = document.getElementById("welcome");
+const boardElement = document.getElementById("board");
+const messageElement = document.getElementById("message");
+
+const checkButton = document.getElementById("check");
+const newGameButton = document.getElementById("newGame");
+
+const pieces = document.querySelectorAll(".piece");
+
+
+// ============================================================
+// 4. مدیریت صدا
+// ============================================================
+
+let audioContext = null;
+
+
+/**
+ * ساخت AudioContext فقط در صورت نیاز
+ */
+function getAudioContext() {
+
+    if (!audioContext) {
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        if (!AudioContext) {
+            return null;
+        }
+
+        audioContext = new AudioContext();
+    }
+
+    return audioContext;
+}
+
+
+/**
+ * فعال‌سازی صدا در صورت نیاز
+ */
+function prepareAudio() {
+
+    const audio = getAudioContext();
+
+    if (!audio) {
         return;
     }
 
-    document.getElementById("welcome").textContent =
-        "🌸 " + name + " جان، موفق باشی!";
+    if (audio.state === "suspended") {
+        audio.resume();
+    }
+}
 
-    document.querySelector(".welcome").style.display = "none";
 
-    document.getElementById("game").style.display = "flex";
+// ============================================================
+// 5. شروع بازی
+// ============================================================
 
+startGameButton.addEventListener("click", startGame);
+
+
+/**
+ * شروع بازی با نام دانش‌آموز
+ */
+function startGame() {
+
+    const name = studentNameInput.value.trim();
+
+    if (name === "") {
+
+        alert("🥰 لطفاً نام زیبایت را وارد کن");
+
+        studentNameInput.focus();
+
+        return;
+    }
+
+
+    // فعال‌سازی AudioContext پس از لمس کاربر
+    prepareAudio();
+
+
+    // نمایش نام دانش‌آموز
+    welcomeMessage.textContent =
+        `🌸 ${name} جان، موفق باشی!`;
+
+
+    // مخفی کردن صفحه شروع
+    welcomePage.style.display = "none";
+
+
+    // نمایش صفحه بازی
+    gamePage.style.display = "flex";
+
+
+    // ساخت اولین جدول
     createNewGame();
-});
+}
 
 
-// ========================================
-// ساخت جدول جدید
-// ========================================
+// ============================================================
+// 6. ساخت جدول جدید
+// ============================================================
 
 function createNewGame() {
 
     selectedSymbol = null;
 
+
+    // حذف حالت انتخاب‌شده از شکل‌ها
+    pieces.forEach(piece => {
+        piece.classList.remove("selected");
+    });
+
+
+    // ساخت جواب کامل جدول
     solution = createSudoku();
 
+
+    // ساخت نسخه قابل بازی
     puzzle = solution.map(row => [...row]);
 
-    // چند خانه را خالی می‌کنیم
-    const emptyCells = 7;
+
+    // خالی کردن تعدادی از خانه‌ها
+    removeRandomCells();
+
+
+    // نمایش جدول
+    drawBoard();
+
+
+    // نمایش شکل‌ها
+    showSymbols();
+
+
+    // پیام اولیه
+    setMessage(
+        "🧩 شکل مناسب را انتخاب کن!"
+    );
+}
+
+
+// ============================================================
+// 7. خالی کردن خانه‌های تصادفی
+// ============================================================
+
+function removeRandomCells() {
 
     let removed = 0;
 
-    while (removed < emptyCells) {
+    while (removed < EMPTY_CELLS) {
 
-        const row = Math.floor(Math.random() * 4);
-        const col = Math.floor(Math.random() * 4);
+        const row =
+            Math.floor(Math.random() * BOARD_SIZE);
 
+        const col =
+            Math.floor(Math.random() * BOARD_SIZE);
+
+
+        // اگر خانه هنوز پر است، آن را خالی می‌کنیم
         if (puzzle[row][col] !== "") {
 
             puzzle[row][col] = "";
@@ -66,21 +204,26 @@ function createNewGame() {
             removed++;
         }
     }
-
-    drawBoard();
-
-    showSymbols();
-
-    document.getElementById("message").textContent =
-        "🧩 شکل مناسب را انتخاب کن!";
 }
 
 
-// ========================================
-// ساخت سودوکوی صحیح ۴×۴
-// ========================================
+// ============================================================
+// 8. ساخت سودوکوی صحیح ۴×۴
+// ============================================================
 
 function createSudoku() {
+
+    /*
+        الگوی پایه:
+
+        🍎 🐱 ⭐ 🚗
+        ⭐ 🚗 🍎 🐱
+        🐱 🍎 🚗 ⭐
+        🚗 ⭐ 🐱 🍎
+
+        سپس شکل‌ها، ردیف‌ها و ستون‌ها
+        به صورت تصادفی جابه‌جا می‌شوند.
+    */
 
     const base = [
         [0, 1, 2, 3],
@@ -89,275 +232,473 @@ function createSudoku() {
         [3, 2, 1, 0]
     ];
 
+
+    // --------------------------------------------------------
     // جابه‌جایی تصادفی شکل‌ها
-    const shuffledSymbols = [...symbols].sort(
-        () => Math.random() - 0.5
-    );
+    // --------------------------------------------------------
+
+    const shuffledSymbols = [...symbols]
+        .sort(() => Math.random() - 0.5);
+
 
     let board = base.map(row =>
-        row.map(value => shuffledSymbols[value])
+        row.map(value =>
+            shuffledSymbols[value]
+        )
     );
 
-    // جابه‌جایی ردیف‌های داخل پنجره‌ها
-    if (Math.random() > 0.5) {
-        [board[0], board[1]] = [board[1], board[0]];
-    }
+
+    // --------------------------------------------------------
+    // جابه‌جایی ردیف‌های داخل گروه اول
+    // --------------------------------------------------------
 
     if (Math.random() > 0.5) {
-        [board[2], board[3]] = [board[3], board[2]];
+
+        [board[0], board[1]] =
+            [board[1], board[0]];
     }
 
+
+    // --------------------------------------------------------
+    // جابه‌جایی ردیف‌های داخل گروه دوم
+    // --------------------------------------------------------
+
+    if (Math.random() > 0.5) {
+
+        [board[2], board[3]] =
+            [board[3], board[2]];
+    }
+
+
+    // --------------------------------------------------------
     // جابه‌جایی دو گروه ردیف
+    // --------------------------------------------------------
+
     if (Math.random() > 0.5) {
-        [board[0], board[2]] = [board[2], board[0]];
-        [board[1], board[3]] = [board[3], board[1]];
+
+        [board[0], board[2]] =
+            [board[2], board[0]];
+
+        [board[1], board[3]] =
+            [board[3], board[1]];
     }
 
-    // جابه‌جایی ستون‌های داخل پنجره‌ها
+
+    // --------------------------------------------------------
+    // جابه‌جایی ستون‌های داخل گروه اول
+    // --------------------------------------------------------
+
     if (Math.random() > 0.5) {
-        for (let row of board) {
-            [row[0], row[1]] = [row[1], row[0]];
+
+        for (const row of board) {
+
+            [row[0], row[1]] =
+                [row[1], row[0]];
         }
     }
 
+
+    // --------------------------------------------------------
+    // جابه‌جایی ستون‌های داخل گروه دوم
+    // --------------------------------------------------------
+
     if (Math.random() > 0.5) {
-        for (let row of board) {
-            [row[2], row[3]] = [row[3], row[2]];
+
+        for (const row of board) {
+
+            [row[2], row[3]] =
+                [row[3], row[2]];
         }
     }
 
+
+    // --------------------------------------------------------
     // جابه‌جایی دو گروه ستون
+    // --------------------------------------------------------
+
     if (Math.random() > 0.5) {
-        for (let row of board) {
-            [row[0], row[2]] = [row[2], row[0]];
-            [row[1], row[3]] = [row[3], row[1]];
+
+        for (const row of board) {
+
+            [row[0], row[2]] =
+                [row[2], row[0]];
+
+            [row[1], row[3]] =
+                [row[3], row[1]];
         }
     }
+
 
     return board;
 }
 
 
-// ========================================
-// نمایش جدول
-// ===========================
+// ============================================================
+// 9. نمایش جدول
+// ============================================================
+
 function drawBoard() {
 
-    const boardElement = document.getElementById("board");
-
+    // پاک کردن جدول قبلی
     boardElement.innerHTML = "";
 
-    for (let row = 0; row < 4; row++) {
 
-        for (let col = 0; col < 4; col++) {
+    for (let row = 0; row < BOARD_SIZE; row++) {
 
-            const cell = document.createElement("button");
+        for (let col = 0; col < BOARD_SIZE; col++) {
 
+            const cell =
+                document.createElement("button");
+
+
+            // تنظیمات پایه خانه
+            cell.type = "button";
             cell.className = "cell";
 
             cell.dataset.row = row;
             cell.dataset.col = col;
 
+
+            // ------------------------------------------------
+            // خانه ثابت
+            // ------------------------------------------------
+
             if (puzzle[row][col] !== "") {
 
-                cell.textContent = puzzle[row][col];
+                cell.textContent =
+                    puzzle[row][col];
 
                 cell.classList.add("fixed");
 
-            } else {
+                cell.disabled = true;
+            }
+
+
+            // ------------------------------------------------
+            // خانه خالی
+            // ------------------------------------------------
+
+            else {
 
                 cell.textContent = "";
 
-                cell.addEventListener("click", function () {
-
-                    putSymbol(row, col, cell);
-
-                });
+                cell.addEventListener(
+                    "click",
+                    () => putSymbol(row, col, cell)
+                );
             }
+
 
             boardElement.appendChild(cell);
         }
     }
 }
 
-// ========================================
-// نمایش شکل‌ها
-// ========================================
+
+// ============================================================
+// 10. نمایش شکل‌های انتخابی
+// ============================================================
 
 function showSymbols() {
 
-    const pieces = document.querySelectorAll(".piece");
-
     pieces.forEach((piece, index) => {
 
-        piece.textContent = symbols[index];
+        const symbol = symbols[index];
 
-        piece.onclick = function () {
 
-            selectedSymbol = symbols[index];
+        // نمایش شکل
+        piece.textContent = symbol;
 
-            pieces.forEach(p =>
-                p.classList.remove("selected")
-            );
 
+        // حذف listener قبلی
+        piece.onclick = null;
+
+
+        // انتخاب شکل
+        piece.onclick = () => {
+
+            prepareAudio();
+
+            selectedSymbol = symbol;
+
+
+            // حذف انتخاب قبلی
+            pieces.forEach(item => {
+                item.classList.remove("selected");
+            });
+
+
+            // انتخاب شکل فعلی
             piece.classList.add("selected");
 
-            document.getElementById("message").textContent =
-                "👆 حالا یک خانه خالی را انتخاب کن";
+
+            setMessage(
+                "👆 حالا یک خانه خالی را انتخاب کن"
+            );
         };
     });
 }
 
 
-// ========================================
-// قرار دادن شکل در خانه
-// ========================================
+// ============================================================
+// 11. قرار دادن شکل در خانه
+// ============================================================
 
 function putSymbol(row, col, cell) {
 
+    // اگر خانه ثابت باشد، کاری انجام نمی‌شود
+    if (cell.classList.contains("fixed")) {
+        return;
+    }
+
+
+    // اگر هنوز شکلی انتخاب نشده باشد
     if (selectedSymbol === null) {
 
-        document.getElementById("message").textContent =
-            "😊 اول یکی از شکل‌ها را انتخاب کن";
+        setMessage(
+            "😊 اول یکی از شکل‌ها را انتخاب کن"
+        );
 
         return;
     }
 
+
+    // قرار دادن شکل
     puzzle[row][col] = selectedSymbol;
 
     cell.textContent = selectedSymbol;
 
+
+    // خانه توسط دانش‌آموز پر شده
     cell.classList.add("user-cell");
 
+
+    // پاک کردن حالت قبلی
+    cell.classList.remove(
+        "correct",
+        "wrong"
+    );
+
+
+    // بررسی پاسخ
     checkCell(row, col, cell);
 }
 
 
-// ========================================
-// بررسی همان خانه
-// ========================================
+// ============================================================
+// 12. بررسی یک خانه
+// ============================================================
+
 function checkCell(row, col, cell) {
 
-    if (puzzle[row][col] === solution[row][col]) {
+    const isCorrect =
+        puzzle[row][col] === solution[row][col];
 
+
+    if (isCorrect) {
+
+        // -----------------------------------------------
         // پاسخ درست
+        // -----------------------------------------------
+
         cell.classList.remove("wrong");
 
         cell.classList.add("correct");
 
+
         correctSound();
 
-        document.getElementById("message").textContent =
-            "🌟 آفرین! درست انتخاب کردی";
+
+        setMessage(
+            "🌟 آفرین! درست انتخاب کردی"
+        );
 
     } else {
 
+        // -----------------------------------------------
         // پاسخ اشتباه
+        // -----------------------------------------------
+
         cell.classList.remove("correct");
 
         cell.classList.add("wrong");
 
+
         wrongSound();
 
-        document.getElementById("message").textContent =
-            "💡 اشکالی ندارد، دوباره امتحان کن 😊";
+
+        setMessage(
+            "💡 اشکالی ندارد، دوباره امتحان کن 😊"
+        );
     }
-
-
 }
 
 
-// ========================================
-// بررسی کامل جدول
-// ========================================
+// ============================================================
+// 13. بررسی کامل جدول
+// ============================================================
 
-document.getElementById("check").addEventListener("click", function () {
+checkButton.addEventListener(
+    "click",
+    checkCompleteBoard
+);
+
+
+/**
+ * بررسی تمام خانه‌های جدول
+ */
+function checkCompleteBoard() {
 
     let complete = true;
     let correct = true;
 
-    for (let row = 0; row < 4; row++) {
 
-        for (let col = 0; col < 4; col++) {
+    for (let row = 0; row < BOARD_SIZE; row++) {
 
+        for (let col = 0; col < BOARD_SIZE; col++) {
+
+            // خانه خالی
             if (puzzle[row][col] === "") {
 
                 complete = false;
 
-            } else if (puzzle[row][col] !== solution[row][col]) {
+                continue;
+            }
+
+
+            // پاسخ اشتباه
+            if (
+                puzzle[row][col] !==
+                solution[row][col]
+            ) {
 
                 correct = false;
             }
         }
     }
 
+
+    // --------------------------------------------------------
+    // جدول هنوز کامل نشده
+    // --------------------------------------------------------
+
     if (!complete) {
 
-        document.getElementById("message").textContent =
-            "🧩 هنوز چند خانه خالی مانده است";
+        setMessage(
+            "🧩 هنوز چند خانه خالی مانده است"
+        );
 
         return;
     }
 
+
+    // --------------------------------------------------------
+    // جدول کاملاً صحیح است
+    // --------------------------------------------------------
+
     if (correct) {
 
-        document.getElementById("message").textContent =
-            "🎉🎉 آفرین! جدول را کامل حل کردی! 🏆";
+        setMessage(
+            "🎉🎉 آفرین! جدول را کامل حل کردی! 🏆"
+        );
 
-    } else {
 
-        document.getElementById("message").textContent =
-            "💡 بعضی جواب‌ها درست نیستند؛ دوباره امتحان کن";
+        successEffect();
+
     }
-});
 
 
-// ========================================
-// جدول جدید
-// ========================================
+    // --------------------------------------------------------
+    // جدول کامل است اما اشتباه دارد
+    // --------------------------------------------------------
 
-document.getElementById("newGame").addEventListener("click", function () {
+    else {
 
-    createNewGame();
+        setMessage(
+            "💡 بعضی جواب‌ها درست نیستند؛ دوباره امتحان کن"
+        );
+    }
+}
 
-});// ========================================
-// صدای پاسخ اشتباه
-// ========================================
+
+// ============================================================
+// 14. جدول جدید
+// ============================================================
+
+newGameButton.addEventListener(
+    "click",
+    createNewGame
+);
+
+
+// ============================================================
+// 15. پیام بازی
+// ============================================================
+
+function setMessage(text) {
+
+    messageElement.textContent = text;
+}
+
+
+// ============================================================
+// 16. صدای پاسخ اشتباه
+// ============================================================
 
 function wrongSound() {
 
-    const audio = new (window.AudioContext ||
-        window.webkitAudioContext)();
+    const audio = getAudioContext();
 
-    const oscillator = audio.createOscillator();
-    const gain = audio.createGain();
+    if (!audio) {
+        return;
+    }
+
+
+    if (audio.state === "suspended") {
+        audio.resume();
+    }
+
+
+    const oscillator =
+        audio.createOscillator();
+
+    const gain =
+        audio.createGain();
+
 
     oscillator.type = "sine";
+
 
     oscillator.frequency.setValueAtTime(
         220,
         audio.currentTime
     );
 
+
     oscillator.frequency.exponentialRampToValueAtTime(
         140,
         audio.currentTime + 0.25
     );
 
+
     gain.gain.setValueAtTime(
-        0.25,
+        0.18,
         audio.currentTime
     );
+
 
     gain.gain.exponentialRampToValueAtTime(
         0.01,
         audio.currentTime + 0.25
     );
 
+
     oscillator.connect(gain);
     gain.connect(audio.destination);
 
+
     oscillator.start();
+
 
     oscillator.stop(
         audio.currentTime + 0.25
@@ -365,47 +706,144 @@ function wrongSound() {
 }
 
 
-// ========================================
-// صدای پاسخ درست
-// ========================================
+// ============================================================
+// 17. صدای پاسخ درست
+// ============================================================
 
 function correctSound() {
 
-    const audio = new (window.AudioContext ||
-        window.webkitAudioContext)();
+    const audio = getAudioContext();
 
-    const oscillator = audio.createOscillator();
-    const gain = audio.createGain();
+    if (!audio) {
+        return;
+    }
+
+
+    if (audio.state === "suspended") {
+        audio.resume();
+    }
+
+
+    const oscillator =
+        audio.createOscillator();
+
+    const gain =
+        audio.createGain();
+
 
     oscillator.type = "sine";
+
+
+    // نت اول
+    oscillator.frequency.setValueAtTime(
+        523,
+        audio.currentTime
+    );
+
+
+    // نت دوم
+    oscillator.frequency.setValueAtTime(
+        659,
+        audio.currentTime + 0.12
+    );
+
+
+    gain.gain.setValueAtTime(
+        0.16,
+        audio.currentTime
+    );
+
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.01,
+        audio.currentTime + 0.3
+    );
+
+
+    oscillator.connect(gain);
+    gain.connect(audio.destination);
+
+
+    oscillator.start();
+
+
+    oscillator.stop(
+        audio.currentTime + 0.3
+    );
+}
+
+
+// ============================================================
+// 18. افکت موفقیت
+// ============================================================
+
+function successEffect() {
+
+    const audio = getAudioContext();
+
+    if (!audio) {
+        return;
+    }
+
+
+    if (audio.state === "suspended") {
+        audio.resume();
+    }
+
+
+    const oscillator =
+        audio.createOscillator();
+
+    const gain =
+        audio.createGain();
+
+
+    oscillator.type = "sine";
+
 
     oscillator.frequency.setValueAtTime(
         523,
         audio.currentTime
     );
 
+
     oscillator.frequency.setValueAtTime(
         659,
         audio.currentTime + 0.12
     );
 
+
+    oscillator.frequency.setValueAtTime(
+        784,
+        audio.currentTime + 0.24
+    );
+
+
     gain.gain.setValueAtTime(
-        0.2,
+        0.18,
         audio.currentTime
     );
 
+
     gain.gain.exponentialRampToValueAtTime(
         0.01,
-        audio.currentTime + 0.3
+        audio.currentTime + 0.5
     );
+
 
     oscillator.connect(gain);
     gain.connect(audio.destination);
 
+
     oscillator.start();
 
+
     oscillator.stop(
-        audio.currentTime + 0.3
+        audio.currentTime + 0.5
     );
 }
-س
+
+
+// ============================================================
+// پایان
+// ============================================================
