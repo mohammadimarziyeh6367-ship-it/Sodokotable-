@@ -1,114 +1,225 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>جدول شگفت انگیز 🧩</title>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <meta
+        name="description"
+        content="بازی آموزشی جدول شگفت‌انگیز برای دانش‌آموزان کلاس اول">
+
+    <meta
+        name="theme-color"
+        content="#8ed8ff">
+
+    <title>🧩 جدول شگفت‌انگیز | بازی آموزشی کلاس اول</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-    <!-- =========================
+
+    <!-- ==================================================
          صفحه شروع
-    ========================== -->
+    =================================================== -->
 
-    <div class="welcome">
+    <main class="welcome" id="welcomePage">
 
-        <div class="card">
+        <section class="card">
 
-            <!-- عکس شما -->
+            <!-- عکس معلم -->
+
             <img
                 src="IMG_3330.jpeg"
                 class="teacher"
-                alt="معلم">
+                alt="تصویر معلم">
 
-            <h1>🧩 جدول شگفت انگیز</h1>
+
+            <!-- عنوان بازی -->
+
+            <h1>
+                🧩 جدول شگفت‌انگیز
+            </h1>
+
 
             <p>
                 بازی آموزشی کلاس اول دبستان
             </p>
 
+
             <h2>
                 نام زیبایت را وارد کن 🥰
             </h2>
 
+
+            <!-- نام دانش‌آموز -->
+
             <input
                 id="studentName"
                 type="text"
-                placeholder="نام دانش‌آموز">
+                placeholder="نام دانش‌آموز"
+                aria-label="نام دانش‌آموز"
+                autocomplete="name"
+                maxlength="30">
 
-            <button id="startGame">
+
+            <!-- شروع بازی -->
+
+            <button
+                id="startGame"
+                type="button">
+
                 🎮 شروع بازی
+
             </button>
 
-        </div>
+        </section>
 
-    </div>
+    </main>
 
 
-    <!-- =========================
+
+    <!-- ==================================================
          صفحه بازی
-    ========================== -->
+    =================================================== -->
 
-    <div id="game">
+    <main
+        id="game"
+        aria-label="بازی جدول شگفت‌انگیز">
 
-        <div class="game-header">
 
-            <h1>🧩 جدول شگفت انگیز</h1>
+        <!-- عنوان بازی -->
+
+        <header class="game-header">
+
+            <h1>
+                🧩 جدول شگفت‌انگیز
+            </h1>
 
             <h2 id="welcome"></h2>
 
-        </div>
+        </header>
 
 
-        <!-- جدول سودوکو -->
 
-        <div id="board" class="board"></div>
+        <!-- ==================================================
+             جدول ۴ × ۴
+        =================================================== -->
 
+        <section
+            id="board"
+            class="board"
+            aria-label="جدول چهار در چهار">
 
-        <!-- شکل‌های بازی -->
-
-        <div class="pieces">
-
-            <button class="piece">🍎</button>
-
-            <button class="piece">🐱</button>
-
-            <button class="piece">⭐</button>
-
-            <button class="piece">🚗</button>
-
-        </div>
+        </section>
 
 
-        <!-- دکمه‌ها -->
 
-        <div class="buttons">
+        <!-- ==================================================
+             شکل‌های قابل انتخاب
+        =================================================== -->
 
-            <button id="check">
+        <section
+            class="pieces"
+            aria-label="انتخاب شکل">
+
+
+            <button
+                class="piece"
+                type="button"
+                aria-label="سیب">
+
+                🍎
+
+            </button>
+
+
+            <button
+                class="piece"
+                type="button"
+                aria-label="گربه">
+
+                🐱
+
+            </button>
+
+
+            <button
+                class="piece"
+                type="button"
+                aria-label="ستاره">
+
+                ⭐
+
+            </button>
+
+
+            <button
+                class="piece"
+                type="button"
+                aria-label="ماشین">
+
+                🚗
+
+            </button>
+
+        </section>
+
+
+
+        <!-- ==================================================
+             دکمه‌های بازی
+        =================================================== -->
+
+        <section
+            class="buttons"
+            aria-label="کنترل‌های بازی">
+
+
+            <button
+                id="check"
+                type="button">
+
                 ✅ بررسی پاسخ
+
             </button>
 
-            <button id="newGame">
+
+            <button
+                id="newGame"
+                type="button">
+
                 🎲 جدول جدید
+
             </button>
 
-        </div>
+        </section>
 
 
-        <!-- پیام -->
 
-        <h2 id="message"></h2>
+        <!-- پیام بازی -->
 
-    </div>
+        <h2
+            id="message"
+            aria-live="polite">
+        </h2>
 
 
-    <!-- JavaScript -->
+    </main>
+
+
+
+    <!-- ==================================================
+         JavaScript
+    =================================================== -->
 
     <script src="script.js"></script>
 
