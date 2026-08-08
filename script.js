@@ -141,46 +141,61 @@ function createSudoku() {
 // ========================================
 // نمایش جدول
 // ========================================
-
 function drawBoard() {
 
     const boardElement = document.getElementById("board");
 
     boardElement.innerHTML = "";
 
-    for (let row = 0; row < 4; row++) {
+    // چهار پنجره ۲×۲
+    for (let boxRow = 0; boxRow < 2; boxRow++) {
 
-        for (let col = 0; col < 4; col++) {
+        for (let boxCol = 0; boxCol < 2; boxCol++) {
 
-            const cell = document.createElement("button");
+            const box = document.createElement("div");
 
-            cell.className = "cell";
+            box.className = "sudoku-box";
 
-            cell.dataset.row = row;
-            cell.dataset.col = col;
+            // ساخت ۴ خانه هر پنجره
+            for (let r = 0; r < 2; r++) {
 
-            if (puzzle[row][col] !== "") {
+                for (let c = 0; c < 2; c++) {
 
-                cell.textContent = puzzle[row][col];
+                    const row = boxRow * 2 + r;
+                    const col = boxCol * 2 + c;
 
-                cell.classList.add("fixed");
+                    const cell = document.createElement("button");
 
-            } else {
+                    cell.className = "cell";
 
-                cell.textContent = "";
+                    cell.dataset.row = row;
+                    cell.dataset.col = col;
 
-                cell.addEventListener("click", function () {
+                    if (puzzle[row][col] !== "") {
 
-                    putSymbol(row, col, cell);
+                        cell.textContent = puzzle[row][col];
 
-                });
+                        cell.classList.add("fixed");
+
+                    } else {
+
+                        cell.textContent = "";
+
+                        cell.addEventListener("click", function () {
+
+                            putSymbol(row, col, cell);
+
+                        });
+                    }
+
+                    box.appendChild(cell);
+                }
             }
 
-            boardElement.appendChild(cell);
+            boardElement.appendChild(box);
         }
     }
 }
-
 
 // ========================================
 // نمایش شکل‌ها
