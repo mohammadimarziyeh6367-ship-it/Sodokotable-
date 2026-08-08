@@ -382,20 +382,20 @@ body {
 /* جواب درست */
 
 .cell.correct {
-    background: #d9f8df;
-
+    background: #65d68a;
+    color: white;
+    border-color: #249447;
     animation: correctAnimation 0.3s;
 }
 
 
 /* جواب اشتباه */
-
 .cell.wrong {
-    background: #ffdada;
-
-    animation: wrongAnimation 0.25s;
+    background: #ff5c5c;
+    color: white;
+    border-color: #d62828;
+    animation: wrongAnimation 0.3s;
 }
-
 
 /* ========================================
    شکل‌ها
