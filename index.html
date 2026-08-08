@@ -1,66 +1,117 @@
 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سودوکوی کلاس اول</title>
+
+    <title>جدول شگفت انگیز 🧩</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="container">
+    <!-- =========================
+         صفحه شروع
+    ========================== -->
 
-    <h1>جدول شگفت انگیز 🧩</h1>
-<div class="login">
+    <div class="welcome">
 
-    <h2>نام زیبایت را وارد کن 🥰</h2>
+        <div class="card">
 
-    <input
-        type="text"
-        id="studentName"
-        placeholder=""
-    >
+            <!-- عکس شما -->
+            <img
+                src="IMG_3330.jpeg"
+                class="teacher"
+                alt="معلم">
 
-    <br><br>
+            <h1>🧩 جدول شگفت انگیز</h1>
 
-    <button id="startGame">
-        🎮 شروع بازی
-    </button>
+            <p>
+                بازی آموزشی کلاس اول دبستان
+            </p>
 
-</div>
+            <h2>
+                نام زیبایت را وارد کن 🥰
+            </h2>
 
-<h2 id="welcome"></h2>
+            <input
+                id="studentName"
+                type="text"
+                placeholder="نام دانش‌آموز">
 
-<div id="game" style="display:none;">
+            <button id="startGame">
+                🎮 شروع بازی
+            </button>
 
-    <div id="board" class="board"></div>
+        </div>
 
-    <!-- بقیه قسمت‌های بازی همینجا قرار می‌گیرند -->
-
-</div>
-    <!-- جدول سودوکو -->
-    <div id="board" class="board"></div>
-
-    <!-- شکل‌ها -->
-    <div class="pieces">
-        <button class="piece">🍎</button>
-        <button class="piece">🐱</button>
-        <button class="piece">⭐</button>
-        <button class="piece">🚗</button>
     </div>
 
-    <!-- دکمه‌ها -->
-    <div class="buttons">
-        <button id="check">✅ بررسی پاسخ</button>
-        <button id="newGame">🎲 جدول جدید</button>
+
+    <!-- =========================
+         صفحه بازی
+    ========================== -->
+
+    <div id="game">
+
+        <div class="game-header">
+
+            <h1>🧩 جدول شگفت انگیز</h1>
+
+            <h2 id="welcome"></h2>
+
+        </div>
+
+
+        <!-- جدول سودوکو -->
+
+        <div id="board" class="board"></div>
+
+
+        <!-- شکل‌های بازی -->
+
+        <div class="pieces">
+
+            <button class="piece">🍎</button>
+
+            <button class="piece">🐱</button>
+
+            <button class="piece">⭐</button>
+
+            <button class="piece">🚗</button>
+
+        </div>
+
+
+        <!-- دکمه‌ها -->
+
+        <div class="buttons">
+
+            <button id="check">
+                ✅ بررسی پاسخ
+            </button>
+
+            <button id="newGame">
+                🎲 جدول جدید
+            </button>
+
+        </div>
+
+
+        <!-- پیام -->
+
+        <h2 id="message"></h2>
+
     </div>
 
-    <h2 id="message"></h2>
 
-</div>
+    <!-- JavaScript -->
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
