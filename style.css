@@ -1,6 +1,13 @@
-/* ========================================
-   تنظیمات اصلی
-======================================== */
+/* =========================================================
+   جدول شگفت‌انگیز | Sudoku کلاس اول
+   طراحی: مرضیه محمدی
+   نسخه: Responsive / Mobile Friendly
+========================================================= */
+
+
+/* =========================================================
+   1. RESET & BASE
+========================================================= */
 
 * {
     box-sizing: border-box;
@@ -16,14 +23,19 @@ body {
 
 body {
     font-family: Tahoma, Arial, sans-serif;
-    background: linear-gradient(135deg, #8ed8ff, #d9f5ff);
+    background: linear-gradient(
+        135deg,
+        #8ed8ff 0%,
+        #d9f5ff 100%
+    );
     color: #263238;
+    overflow-x: hidden;
 }
 
 
-/* ========================================
-   صفحه شروع
-======================================== */
+/* =========================================================
+   2. PAGE: WELCOME
+========================================================= */
 
 .welcome {
     width: 100%;
@@ -34,39 +46,43 @@ body {
     align-items: center;
     justify-content: center;
 
-    padding: 15px;
+    padding: 18px;
 }
 
 
-/* کارت صفحه اول */
+/* =========================================================
+   3. WELCOME CARD
+========================================================= */
 
 .card {
-    width: min(92vw, 400px);
+    width: min(92vw, 420px);
 
     background: rgba(255, 255, 255, 0.97);
 
-    border-radius: 25px;
+    border-radius: 28px;
 
-    padding: 18px 20px;
+    padding: 22px 22px 24px;
 
     text-align: center;
 
     box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.15);
+        0 14px 35px rgba(0, 0, 0, 0.16);
+
+    border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
 
-/* ========================================
-   عکس معلم
-======================================== */
+/* =========================================================
+   4. TEACHER IMAGE
+========================================================= */
 
 .teacher {
-    width: 80px;
-    height: 80px;
+    width: 95px;
+    height: 95px;
 
     display: block;
 
-    margin: 0 auto 8px;
+    margin: 0 auto 10px;
 
     border-radius: 50%;
 
@@ -74,20 +90,23 @@ body {
 
     border: 4px solid #ffb52e;
 
-    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.15);
+    box-shadow:
+        0 5px 14px rgba(0, 0, 0, 0.15);
 }
 
 
-/* ========================================
-   عنوان صفحه اول
-======================================== */
+/* =========================================================
+   5. WELCOME TITLES
+========================================================= */
 
 .card h1 {
     color: #7b35c8;
 
-    font-size: clamp(24px, 7vw, 32px);
+    font-size: clamp(25px, 7vw, 33px);
 
-    margin-bottom: 5px;
+    line-height: 1.25;
+
+    margin-bottom: 6px;
 }
 
 .card p {
@@ -95,30 +114,33 @@ body {
 
     font-size: 15px;
 
-    margin-bottom: 12px;
+    line-height: 1.7;
+
+    margin-bottom: 13px;
 }
 
 .card h2 {
     color: #e83e8c;
 
-    font-size: 18px;
+    font-size: 19px;
 
-    margin-bottom: 10px;
+    line-height: 1.4;
+
+    margin-bottom: 12px;
 }
 
 
-/* ========================================
-   کادر نام دانش آموز
-======================================== */
+/* =========================================================
+   6. STUDENT NAME INPUT
+========================================================= */
 
 #studentName {
     width: 100%;
-
-    height: 48px;
+    height: 51px;
 
     border: 3px solid #b9e8ff;
 
-    border-radius: 14px;
+    border-radius: 15px;
 
     outline: none;
 
@@ -129,31 +151,40 @@ body {
     font-family: inherit;
 
     background: #f8fdff;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 #studentName:focus {
     border-color: #7b35c8;
 
-    box-shadow: 0 0 0 3px rgba(123, 53, 200, 0.12);
+    box-shadow:
+        0 0 0 3px rgba(123, 53, 200, 0.12);
 }
 
 
-/* ========================================
-   دکمه شروع
-======================================== */
+/* =========================================================
+   7. START BUTTON
+========================================================= */
 
 #startGame {
     width: 100%;
+    height: 52px;
 
-    height: 50px;
-
-    margin-top: 12px;
+    margin-top: 13px;
 
     border: none;
 
-    border-radius: 15px;
+    border-radius: 16px;
 
-    background: linear-gradient(135deg, #ff4f9a, #8e44d6);
+    background:
+        linear-gradient(
+            135deg,
+            #ff4f9a,
+            #8e44d6
+        );
 
     color: white;
 
@@ -164,12 +195,26 @@ body {
     font-weight: bold;
 
     cursor: pointer;
+
+    box-shadow:
+        0 5px 12px rgba(142, 68, 214, 0.22);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+#startGame:active {
+    transform: scale(0.97);
+
+    box-shadow:
+        0 3px 8px rgba(142, 68, 214, 0.18);
 }
 
 
-/* ========================================
-   صفحه بازی
-======================================== */
+/* =========================================================
+   8. GAME PAGE
+========================================================= */
 
 #game {
     width: 100%;
@@ -183,53 +228,59 @@ body {
     align-items: center;
     justify-content: center;
 
-    padding: 8px;
+    padding: 10px;
 
     overflow: hidden;
 }
 
 
-/* ========================================
-   سربرگ بازی
-======================================== */
+/* =========================================================
+   9. GAME HEADER
+========================================================= */
 
 .game-header {
+    width: 100%;
+
     text-align: center;
 
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .game-header h1 {
     color: #7b35c8;
 
-    font-size: 22px;
+    font-size: 24px;
 
-    margin-bottom: 2px;
+    line-height: 1.3;
+
+    margin-bottom: 3px;
 }
 
 #welcome {
     color: #e83e8c;
 
-    font-size: 16px;
+    font-size: 17px;
+
+    line-height: 1.4;
 
     margin: 0;
 }
 
 
-/* ========================================
-   جدول سودوکوی ۴×۴
-======================================== */
+/* =========================================================
+   10. SUDOKU BOARD
+========================================================= */
 
 .board {
-    width: 250px;
-    height: 250px;
+    width: 290px;
+    height: 290px;
 
     display: grid;
 
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
 
-    margin: 6px auto;
+    margin: 8px auto;
 
     padding: 0;
 
@@ -237,17 +288,18 @@ body {
 
     border: 4px solid #4b287d;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
     overflow: hidden;
 
-    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.16);
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.16);
 }
 
 
-/* ========================================
-   خانه‌های جدول
-======================================== */
+/* =========================================================
+   11. BOARD CELLS
+========================================================= */
 
 .board .cell {
     width: 100%;
@@ -267,35 +319,41 @@ body {
 
     font-family: Arial, sans-serif;
 
-    font-size: 29px;
+    font-size: 34px;
 
     line-height: 1;
 
     cursor: pointer;
+
+    user-select: none;
+
+    transition:
+        background 0.15s ease,
+        transform 0.1s ease;
 }
 
 
-/* ========================================
-   خط عمودی ضخیم پنجره‌ها
-======================================== */
+/* =========================================================
+   12. THICK SUDOKU LINES
+========================================================= */
+
+/* خط عمودی بین دو بخش */
 
 .board .cell:nth-child(4n + 3) {
     border-right: 4px solid #4b287d;
 }
 
 
-/* ========================================
-   خط افقی ضخیم پنجره‌ها
-======================================== */
+/* خط افقی بین دو بخش */
 
 .board .cell:nth-child(n + 5):nth-child(-n + 8) {
     border-top: 4px solid #4b287d;
 }
 
 
-/* ========================================
-   خانه‌های ثابت
-======================================== */
+/* =========================================================
+   13. FIXED CELLS
+========================================================= */
 
 .board .cell.fixed {
     background: #f0e7ff;
@@ -304,9 +362,9 @@ body {
 }
 
 
-/* ========================================
-   پاسخ درست
-======================================== */
+/* =========================================================
+   14. CORRECT ANSWER
+========================================================= */
 
 .board .cell.correct {
     background: #65d68a;
@@ -317,9 +375,9 @@ body {
 }
 
 
-/* ========================================
-   پاسخ اشتباه
-======================================== */
+/* =========================================================
+   15. WRONG ANSWER
+========================================================= */
 
 .board .cell.wrong {
     background: #ff5c5c;
@@ -328,115 +386,152 @@ body {
 
     border-color: #d62828;
 
-    animation: wrongAnimation 0.3s;
+    animation:
+        wrongAnimation 0.3s ease;
 }
 
 
-/* ========================================
-   شکل‌ها
-======================================== */
+/* =========================================================
+   16. SHAPE / SYMBOL SELECTION
+========================================================= */
 
 .pieces {
     display: flex;
 
+    align-items: center;
     justify-content: center;
 
-    gap: 6px;
+    gap: 8px;
 
-    margin-top: 5px;
+    margin-top: 7px;
 }
 
 .piece {
-    width: 45px;
-    height: 45px;
+    width: 52px;
+    height: 52px;
 
     padding: 0;
 
     border: 3px solid transparent;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
     background: white;
 
-    font-size: 25px;
+    font-size: 29px;
 
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    line-height: 1;
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.12);
 
     cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        border-color 0.15s ease,
+        background 0.15s ease;
 }
+
+
+/* انتخاب شکل */
 
 .piece.selected {
     border-color: #e83e8c;
 
-    transform: translateY(-3px) scale(1.06);
+    transform:
+        translateY(-3px)
+        scale(1.06);
 
     background: #fff0f7;
 }
 
 
-/* ========================================
-   دکمه‌های بازی
-======================================== */
+/* =========================================================
+   17. GAME BUTTONS
+========================================================= */
 
 .buttons {
     display: flex;
 
-    gap: 6px;
+    gap: 8px;
 
-    width: 250px;
+    width: 290px;
 
-    margin-top: 6px;
+    margin-top: 8px;
 }
 
 .buttons button {
     flex: 1;
 
+    min-height: 42px;
+
     border: none;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
-    padding: 8px 3px;
+    padding: 9px 5px;
 
     font-family: inherit;
 
-    font-size: 12px;
+    font-size: 13px;
 
     font-weight: bold;
 
     color: white;
 
     cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
 }
+
+.buttons button:active {
+    transform: scale(0.96);
+
+    opacity: 0.9;
+}
+
+
+/* دکمه بررسی */
 
 #check {
     background: #35a853;
 }
+
+
+/* دکمه بازی جدید */
 
 #newGame {
     background: #7b35c8;
 }
 
 
-/* ========================================
-   پیام
-======================================== */
+/* =========================================================
+   18. GAME MESSAGE
+========================================================= */
 
 #message {
-    min-height: 20px;
+    min-height: 22px;
 
-    margin-top: 4px;
+    margin-top: 5px;
+
+    padding: 0 5px;
 
     text-align: center;
 
     color: #e83e8c;
 
     font-size: 14px;
+
+    line-height: 1.5;
 }
 
 
-/* ========================================
-   انیمیشن پاسخ غلط
-======================================== */
+/* =========================================================
+   19. WRONG ANSWER ANIMATION
+========================================================= */
 
 @keyframes wrongAnimation {
 
@@ -449,60 +544,227 @@ body {
         transform: translateX(-5px);
     }
 
+    50% {
+        transform: translateX(4px);
+    }
+
     75% {
-        transform: translateX(5px);
+        transform: translateX(-3px);
     }
 }
 
 
-/* ========================================
-   صفحه‌های خیلی کوچک
-======================================== */
+/* =========================================================
+   20. TABLET / MEDIUM SCREENS
+========================================================= */
 
-@media (max-height:700px) {
+@media (min-width: 600px) {
 
     .card {
-        padding: 12px 16px;
+        width: 440px;
+
+        padding: 25px 26px 27px;
     }
 
     .teacher {
-        width: 80px;
-        height: 80px;
-    }
-
-    .card h1 {
-        font-size: 23px;
-    }
-
-    .card p {
-        margin-bottom: 8px;
-    }
-
-    .card h2 {
-        font-size: 16px;
-    }
-
-    #studentName {
-        height: 43px;
-    }
-
-    #startGame {
-        height: 45px;
-        margin-top: 8px;
+        width: 105px;
+        height: 105px;
     }
 
     .board {
-        width: 230px;
-        height: 230px;
+        width: 320px;
+        height: 320px;
+    }
+
+    .board .cell {
+        font-size: 38px;
     }
 
     .piece {
-        width: 42px;
-        height: 42px;
-        font-size: 23px;
+        width: 58px;
+        height: 58px;
+
+        font-size: 32px;
     }
 
     .buttons {
-        width: 230px;
+        width: 320px;
+    }
+}
+
+
+/* =========================================================
+   21. SHORT SCREENS
+   مناسب موبایل‌هایی که ارتفاع صفحه کم است
+========================================================= */
+
+@media (max-height: 700px) {
+
+    #game {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .game-header {
+        margin-bottom: 3px;
+    }
+
+    .game-header h1 {
+        font-size: 21px;
+    }
+
+    #welcome {
+        font-size: 15px;
+    }
+
+    .board {
+        width: 270px;
+        height: 270px;
+
+        margin: 5px auto;
+    }
+
+    .board .cell {
+        font-size: 31px;
+    }
+
+    .pieces {
+        gap: 6px;
+
+        margin-top: 4px;
+    }
+
+    .piece {
+        width: 48px;
+        height: 48px;
+
+        font-size: 26px;
+    }
+
+    .buttons {
+        width: 270px;
+
+        margin-top: 5px;
+    }
+
+    .buttons button {
+        min-height: 38px;
+
+        padding: 7px 4px;
+
+        font-size: 12px;
+    }
+
+    #message {
+        min-height: 18px;
+
+        margin-top: 3px;
+
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   22. VERY SMALL MOBILE SCREENS
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .welcome {
+        padding: 12px;
+    }
+
+    .card {
+        width: 94vw;
+
+        padding: 16px 17px 19px;
+
+        border-radius: 23px;
+    }
+
+    .teacher {
+        width: 86px;
+        height: 86px;
+
+        margin-bottom: 7px;
+    }
+
+    .card h1 {
+        font-size: 24px;
+    }
+
+    .card p {
+        font-size: 14px;
+
+        margin-bottom: 9px;
+    }
+
+    .card h2 {
+        font-size: 17px;
+
+        margin-bottom: 9px;
+    }
+
+    #studentName {
+        height: 46px;
+
+        font-size: 17px;
+    }
+
+    #startGame {
+        height: 48px;
+
+        font-size: 18px;
+    }
+
+    .board {
+        width: 250px;
+        height: 250px;
+    }
+
+    .board .cell {
+        font-size: 28px;
+    }
+
+    .piece {
+        width: 45px;
+        height: 45px;
+
+        font-size: 24px;
+    }
+
+    .buttons {
+        width: 250px;
+    }
+}
+
+
+/* =========================================================
+   23. TOUCH DEVICES
+========================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+    .piece,
+    .buttons button,
+    #startGame {
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+
+/* =========================================================
+   24. ACCESSIBILITY / REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
