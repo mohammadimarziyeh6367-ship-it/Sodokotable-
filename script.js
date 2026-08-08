@@ -140,59 +140,42 @@ function createSudoku() {
 
 // ========================================
 // نمایش جدول
-// ========================================
+// ===========================
 function drawBoard() {
 
     const boardElement = document.getElementById("board");
 
     boardElement.innerHTML = "";
 
-    // چهار پنجره ۲×۲
-    for (let boxRow = 0; boxRow < 2; boxRow++) {
+    for (let row = 0; row < 4; row++) {
 
-        for (let boxCol = 0; boxCol < 2; boxCol++) {
+        for (let col = 0; col < 4; col++) {
 
-            const box = document.createElement("div");
+            const cell = document.createElement("button");
 
-            box.className = "sudoku-box";
+            cell.className = "cell";
 
-            // ساخت ۴ خانه هر پنجره
-            for (let r = 0; r < 2; r++) {
+            cell.dataset.row = row;
+            cell.dataset.col = col;
 
-                for (let c = 0; c < 2; c++) {
+            if (puzzle[row][col] !== "") {
 
-                    const row = boxRow * 2 + r;
-                    const col = boxCol * 2 + c;
+                cell.textContent = puzzle[row][col];
 
-                    const cell = document.createElement("button");
+                cell.classList.add("fixed");
 
-                    cell.className = "cell";
+            } else {
 
-                    cell.dataset.row = row;
-                    cell.dataset.col = col;
+                cell.textContent = "";
 
-                    if (puzzle[row][col] !== "") {
+                cell.addEventListener("click", function () {
 
-                        cell.textContent = puzzle[row][col];
+                    putSymbol(row, col, cell);
 
-                        cell.classList.add("fixed");
-
-                    } else {
-
-                        cell.textContent = "";
-
-                        cell.addEventListener("click", function () {
-
-                            putSymbol(row, col, cell);
-
-                        });
-                    }
-
-                    box.appendChild(cell);
-                }
+                });
             }
 
-            boardElement.appendChild(box);
+            boardElement.appendChild(cell);
         }
     }
 }
