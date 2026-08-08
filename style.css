@@ -297,13 +297,11 @@ body {
 
 #welcome {
     color: #e83e8c;
-    font-size: 19px;
-}
-
-
-/* ========================================
-   جدول
-======================================== */
+    font-size: 
+  /* =========================================
+   جدول سودوکو ۴×۴
+   چهار پنجره‌ی ۲×۲
+========================================= */
 
 .board {
     width: min(82vw, 360px);
@@ -311,14 +309,14 @@ body {
 
     display: grid;
 
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
 
-    background: white;
+    background: #ffffff;
 
-    border: 4px solid #6336a8;
+    border: 5px solid #4b287d;
 
-    border-radius: 16px;
+    border-radius: 14px;
 
     overflow: hidden;
 
@@ -326,20 +324,38 @@ body {
 }
 
 
-/* خانه‌های جدول */
+/* هر پنجره ۲×۲ */
 
-.cell {
+.sudoku-box {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+
+    border: 3px solid #4b287d;
+
+    background: white;
+}
+
+
+/* خانه‌های داخل پنجره */
+
+.sudoku-box .cell {
+
+    width: 100%;
+    height: 100%;
+
     border: 1px solid #b8a5d6;
 
     background: white;
 
-    font-size: clamp(30px, 9vw, 55px);
-
     display: flex;
 
     align-items: center;
-
     justify-content: center;
+
+    font-size: clamp(30px, 9vw, 55px);
 
     cursor: pointer;
 
@@ -349,99 +365,40 @@ body {
 }
 
 
-/* خطوط ضخیم پنجره‌های ۲×۲ */
-.board {
-    width: min(82vw, 360px);
-    aspect-ratio: 1 / 1;
-
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-
-    background: white;
-
-    border: 4px solid #6336a8;
-
-    border-radius: 16px;
-
-    overflow: hidden;
-
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
-}
-
-.cell {
-    border: 1px solid #b8a5d6;
-
-    background: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: clamp(30px, 9vw, 55px);
-
-    cursor: pointer;
-}
-
-
-/* =========================
-   خط عمودی وسط جدول
-========================= */
-
-.cell:nth-child(2),
-.cell:nth-child(6),
-.cell:nth-child(10),
-.cell:nth-child(14) {
-    border-left: 4px solid #6336a8;
-}
-
-
-/* =========================
-   خط افقی وسط جدول
-========================= */
-
-.cell:nth-child(5),
-.cell:nth-child(6),
-.cell:nth-child(7),
-.cell:nth-child(8) {
-    border-top: 4px solid #6336a8;
-}
-}
-
 /* خانه‌های ثابت */
 
-.cell.fixed {
+.sudoku-box .cell.fixed {
+
     background: #f0e7ff;
 
     cursor: default;
 }
 
 
-/* خانه‌ای که دانش‌آموز انتخاب کرده */
+/* پاسخ درست */
 
-.cell.user-cell {
-    background: #fff8d8;
-}
+.sudoku-box .cell.correct {
 
-
-/* جواب درست */
-
-.cell.correct {
     background: #65d68a;
+
     color: white;
+
     border-color: #249447;
-    animation: correctAnimation 0.3s;
 }
 
 
-/* جواب اشتباه */
-.cell.wrong {
+/* پاسخ اشتباه */
+
+.sudoku-box .cell.wrong {
+
     background: #ff5c5c;
+
     color: white;
+
     border-color: #d62828;
+
     animation: wrongAnimation 0.3s;
-}
+} 
 
 /* ========================================
    شکل‌ها
