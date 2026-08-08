@@ -238,28 +238,34 @@ function putSymbol(row, col, cell) {
 // ========================================
 // بررسی همان خانه
 // ========================================
-
 function checkCell(row, col, cell) {
 
     if (puzzle[row][col] === solution[row][col]) {
 
+        // پاسخ درست
         cell.classList.remove("wrong");
 
         cell.classList.add("correct");
+
+        correctSound();
 
         document.getElementById("message").textContent =
             "🌟 آفرین! درست انتخاب کردی";
 
     } else {
 
+        // پاسخ اشتباه
         cell.classList.remove("correct");
 
         cell.classList.add("wrong");
 
-        document.getElementById("message").textContent =
-            "💡 دوباره امتحان کن";
+        wrongSound();
 
+        document.getElementById("message").textContent =
+            "💡 اشکالی ندارد، دوباره امتحان کن 😊";
     }
+
+
 }
 
 
@@ -316,4 +322,92 @@ document.getElementById("newGame").addEventListener("click", function () {
 
     createNewGame();
 
-});
+});// ========================================
+// صدای پاسخ اشتباه
+// ========================================
+
+function wrongSound() {
+
+    const audio = new (window.AudioContext ||
+        window.webkitAudioContext)();
+
+    const oscillator = audio.createOscillator();
+    const gain = audio.createGain();
+
+    oscillator.type = "sine";
+
+    oscillator.frequency.setValueAtTime(
+        220,
+        audio.currentTime
+    );
+
+    oscillator.frequency.exponentialRampToValueAtTime(
+        140,
+        audio.currentTime + 0.25
+    );
+
+    gain.gain.setValueAtTime(
+        0.25,
+        audio.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.01,
+        audio.currentTime + 0.25
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audio.destination);
+
+    oscillator.start();
+
+    oscillator.stop(
+        audio.currentTime + 0.25
+    );
+}
+
+
+// ========================================
+// صدای پاسخ درست
+// ========================================
+
+function correctSound() {
+
+    const audio = new (window.AudioContext ||
+        window.webkitAudioContext)();
+
+    const oscillator = audio.createOscillator();
+    const gain = audio.createGain();
+
+    oscillator.type = "sine";
+
+    oscillator.frequency.setValueAtTime(
+        523,
+        audio.currentTime
+    );
+
+    oscillator.frequency.setValueAtTime(
+        659,
+        audio.currentTime + 0.12
+    );
+
+    gain.gain.setValueAtTime(
+        0.2,
+        audio.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.01,
+        audio.currentTime + 0.3
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audio.destination);
+
+    oscillator.start();
+
+    oscillator.stop(
+        audio.currentTime + 0.3
+    );
+}
+س
