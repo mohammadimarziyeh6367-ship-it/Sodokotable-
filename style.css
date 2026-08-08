@@ -1,6 +1,6 @@
-/* =========================
+/* ========================================
    تنظیمات اصلی
-========================= */
+======================================== */
 
 * {
     box-sizing: border-box;
@@ -11,25 +11,208 @@
 html,
 body {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
 }
 
 body {
     font-family: Tahoma, Arial, sans-serif;
     background: linear-gradient(135deg, #8ed8ff, #d9f5ff);
-    overflow: hidden;
     color: #263238;
 }
 
 
-/* =========================
+/* ========================================
    صفحه شروع
-========================= */
+======================================== */
+
+.welcome {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px;
+}
+
+
+/* کارت صفحه اول */
+
+.card {
+    width: min(92vw, 400px);
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border-radius: 25px;
+
+    padding: 18px 20px;
+
+    text-align: center;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ========================================
+   عکس معلم
+======================================== */
+
+.teacher {
+    width: 80px;
+    height: 80px;
+
+    display: block;
+
+    margin: 0 auto 8px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 4px solid #ffb52e;
+
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ========================================
+   عنوان صفحه اول
+======================================== */
+
+.card h1 {
+    color: #7b35c8;
+
+    font-size: clamp(24px, 7vw, 32px);
+
+    margin-bottom: 5px;
+}
+
+.card p {
+    color: #607d8b;
+
+    font-size: 15px;
+
+    margin-bottom: 12px;
+}
+
+.card h2 {
+    color: #e83e8c;
+
+    font-size: 18px;
+
+    margin-bottom: 10px;
+}
+
+
+/* ========================================
+   کادر نام دانش آموز
+======================================== */
+
+#studentName {
+    width: 100%;
+
+    height: 48px;
+
+    border: 3px solid #b9e8ff;
+
+    border-radius: 14px;
+
+    outline: none;
+
+    text-align: center;
+
+    font-size: 18px;
+
+    font-family: inherit;
+
+    background: #f8fdff;
+}
+
+#studentName:focus {
+    border-color: #7b35c8;
+
+    box-shadow: 0 0 0 3px rgba(123, 53, 200, 0.12);
+}
+
+
+/* ========================================
+   دکمه شروع
+======================================== */
+
+#startGame {
+    width: 100%;
+
+    height: 50px;
+
+    margin-top: 12px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background: linear-gradient(135deg, #ff4f9a, #8e44d6);
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 19px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* ========================================
+   صفحه بازی
+======================================== */
+
+#game {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    display: none;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px;
+
+    overflow: hidden;
+}
+
+
+/* ========================================
+   سربرگ بازی
+======================================== */
+
+.game-header {
+    text-align: center;
+
+    margin-bottom: 5px;
+}
+
+.game-header h1 {
+    color: #7b35c8;
+
+    font-size: 22px;
+
+    margin-bottom: 2px;
+}
+
 #welcome {
     color: #e83e8c;
-    font-size: 20px;
-    text-align: center;
-    margin-bottom: 10px;
+
+    font-size: 16px;
+
+    margin: 0;
 }
 
 
@@ -38,27 +221,27 @@ body {
 ======================================== */
 
 .board {
-    width: min(82vw, 360px);
-    height: min(82vw, 360px);
+    width: 250px;
+    height: 250px;
 
     display: grid;
 
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
 
-    margin: 12px auto;
+    margin: 6px auto;
+
     padding: 0;
 
     background: white;
 
-    border: 5px solid #4b287d;
-    border-radius: 14px;
+    border: 4px solid #4b287d;
+
+    border-radius: 10px;
 
     overflow: hidden;
 
-    box-sizing: border-box;
-
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.16);
 }
 
 
@@ -70,74 +253,79 @@ body {
     width: 100%;
     height: 100%;
 
-    min-width: 0;
-    min-height: 0;
-
     margin: 0;
     padding: 0;
 
-    border: 1px solid #b8a5d6;
-
-    background: white;
-
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    font-size: clamp(28px, 8vw, 50px);
+    background: white;
 
-    line-height: 1;
+    border: 1px solid #b8a5d6;
 
     font-family: Arial, sans-serif;
 
-    cursor: pointer;
+    font-size: 29px;
 
-    box-sizing: border-box;
+    line-height: 1;
+
+    cursor: pointer;
 }
 
 
 /* ========================================
-   خط عمودی ضخیم
-   جداکننده دو پنجره
+   خط عمودی ضخیم پنجره‌ها
 ======================================== */
 
 .board .cell:nth-child(4n + 3) {
-    border-right: 5px solid #4b287d;
+    border-right: 4px solid #4b287d;
 }
 
 
 /* ========================================
-   خط افقی ضخیم
-   جداکننده دو پنجره
+   خط افقی ضخیم پنجره‌ها
 ======================================== */
 
 .board .cell:nth-child(n + 5):nth-child(-n + 8) {
-    border-top: 5px solid #4b287d;
+    border-top: 4px solid #4b287d;
 }
 
 
-/* خانه‌های از قبل پرشده */
+/* ========================================
+   خانه‌های ثابت
+======================================== */
 
 .board .cell.fixed {
     background: #f0e7ff;
+
     cursor: default;
 }
 
 
-/* پاسخ درست */
+/* ========================================
+   پاسخ درست
+======================================== */
 
 .board .cell.correct {
     background: #65d68a;
+
     color: white;
+
     border-color: #249447;
 }
 
 
-/* پاسخ اشتباه */
+/* ========================================
+   پاسخ اشتباه
+======================================== */
 
 .board .cell.wrong {
     background: #ff5c5c;
+
     color: white;
+
     border-color: #d62828;
 
     animation: wrongAnimation 0.3s;
@@ -150,54 +338,54 @@ body {
 
 .pieces {
     display: flex;
-    gap: 10px;
-
-    margin-top: 10px;
 
     justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 5px;
 }
 
 .piece {
-    width: 58px;
-    height: 58px;
+    width: 45px;
+    height: 45px;
 
     padding: 0;
 
     border: 3px solid transparent;
-    border-radius: 15px;
+
+    border-radius: 10px;
 
     background: white;
 
-    font-size: 34px;
+    font-size: 25px;
 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 
     cursor: pointer;
-
-    transition: 0.15s;
 }
 
 .piece.selected {
     border-color: #e83e8c;
 
-    transform: translateY(-5px) scale(1.08);
+    transform: translateY(-3px) scale(1.06);
 
     background: #fff0f7;
 }
 
 
 /* ========================================
-   دکمه‌ها
+   دکمه‌های بازی
 ======================================== */
 
 .buttons {
     display: flex;
 
-    gap: 10px;
+    gap: 6px;
 
-    width: min(82vw, 360px);
+    width: 250px;
 
-    margin-top: 10px;
+    margin-top: 6px;
 }
 
 .buttons button {
@@ -205,13 +393,13 @@ body {
 
     border: none;
 
-    border-radius: 14px;
+    border-radius: 10px;
 
-    padding: 11px 5px;
+    padding: 8px 3px;
 
     font-family: inherit;
 
-    font-size: 15px;
+    font-size: 12px;
 
     font-weight: bold;
 
@@ -234,32 +422,21 @@ body {
 ======================================== */
 
 #message {
-    min-height: 28px;
+    min-height: 20px;
 
-    margin-top: 7px;
+    margin-top: 4px;
 
     text-align: center;
 
     color: #e83e8c;
 
-    font-size: 17px;
+    font-size: 14px;
 }
 
 
 /* ========================================
-   انیمیشن‌ها
+   انیمیشن پاسخ غلط
 ======================================== */
-
-@keyframes correctAnimation {
-
-    0% {
-        transform: scale(0.8);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
 
 @keyframes wrongAnimation {
 
@@ -279,154 +456,53 @@ body {
 
 
 /* ========================================
-   آیفون و صفحه‌های کوچک
+   صفحه‌های خیلی کوچک
 ======================================== */
 
-@media (max-height: 700px) {
+@media (max-height: 650px) {
 
-    .board {
-        width: 250px;
-        height: 250px;
+    .card {
+        padding: 12px 16px;
     }
 
-    .piece {
-        width: 45px;
-        height: 45px;
-        font-size: 25px;
+    .teacher {
+        width: 70px;
+        height: 70px;
     }
 
-    .game-header h1 {
-        font-size: 21px;
+    .card h1 {
+        font-size: 23px;
     }
 
-    #welcome {
-        font-size: 15px;
+    .card p {
+        margin-bottom: 8px;
     }
 
-    .buttons {
-        width: 250px;
-    }
-
-    .buttons button {
-        padding: 8px 3px;
-        font-size: 12px;
-    }
-
-    #message {
-        font-size: 14px;
-    }
-}
-
-    .piece {
-        width: 48px;
-        height: 48px;
-
-        font-size: 28px;
-    }
-
-    .game-header h1 {
-        font-size: 22px;
-    }
-
-    #welcome {
+    .card h2 {
         font-size: 16px;
     }
 
-    .buttons button {
-        padding: 8px 4px;
-        font-size: 13px;
+    #studentName {
+        height: 43px;
     }
 
-    #message {
-        font-size: 14px;
+    #startGame {
+        height: 45px;
+        margin-top: 8px;
     }
-}
-/* ========================================
-   اندازه مناسب آیفون
-======================================== */
 
-#game {
-    padding: 5px;
-    gap: 0;
-}
+    .board {
+        width: 230px;
+        height: 230px;
+    }
 
-/* عنوان بازی */
-.game-header {
-    margin-bottom: 4px;
-}
+    .piece {
+        width: 42px;
+        height: 42px;
+        font-size: 23px;
+    }
 
-.game-header h1 {
-    font-size: 21px;
-    margin-bottom: 2px;
-}
-
-#welcome {
-    font-size: 15px;
-    margin-bottom: 4px;
-}
-
-
-/* جدول */
-
-.board {
-    width: 250px;
-    height: 250px;
-
-    margin: 5px auto;
-
-    border-width: 4px;
-}
-
-
-/* خانه‌های جدول */
-
-.board .cell {
-    font-size: 30px;
-}
-
-
-/* شکل‌ها */
-
-.pieces {
-    gap: 6px;
-    margin-top: 5px;
-}
-
-.piece {
-    width: 45px;
-    height: 45px;
-
-    font-size: 25px;
-
-    border-radius: 10px;
-}
-
-
-/* دکمه‌ها */
-
-.buttons {
-    width: 250px;
-
-    gap: 6px;
-
-    margin-top: 6px;
-}
-
-.buttons button {
-    padding: 8px 3px;
-
-    font-size: 12px;
-
-    border-radius: 10px;
-}
-
-
-/* پیام */
-
-#message {
-    min-height: 20px;
-
-    margin-top: 4px;
-
-    font-size: 14px;
+    .buttons {
+        width: 230px;
+    }
 }
