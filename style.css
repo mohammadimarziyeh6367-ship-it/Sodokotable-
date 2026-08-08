@@ -285,9 +285,37 @@ body {
 @media (max-height: 700px) {
 
     .board {
-        width: min(70vw, 280px);
-        height: min(70vw, 280px);
+        width: 250px;
+        height: 250px;
     }
+
+    .piece {
+        width: 45px;
+        height: 45px;
+        font-size: 25px;
+    }
+
+    .game-header h1 {
+        font-size: 21px;
+    }
+
+    #welcome {
+        font-size: 15px;
+    }
+
+    .buttons {
+        width: 250px;
+    }
+
+    .buttons button {
+        padding: 8px 3px;
+        font-size: 12px;
+    }
+
+    #message {
+        font-size: 14px;
+    }
+}
 
     .piece {
         width: 48px;
@@ -312,4 +340,93 @@ body {
     #message {
         font-size: 14px;
     }
+}
+/* ========================================
+   اندازه مناسب آیفون
+======================================== */
+
+#game {
+    padding: 5px;
+    gap: 0;
+}
+
+/* عنوان بازی */
+.game-header {
+    margin-bottom: 4px;
+}
+
+.game-header h1 {
+    font-size: 21px;
+    margin-bottom: 2px;
+}
+
+#welcome {
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+
+/* جدول */
+
+.board {
+    width: 250px;
+    height: 250px;
+
+    margin: 5px auto;
+
+    border-width: 4px;
+}
+
+
+/* خانه‌های جدول */
+
+.board .cell {
+    font-size: 30px;
+}
+
+
+/* شکل‌ها */
+
+.pieces {
+    gap: 6px;
+    margin-top: 5px;
+}
+
+.piece {
+    width: 45px;
+    height: 45px;
+
+    font-size: 25px;
+
+    border-radius: 10px;
+}
+
+
+/* دکمه‌ها */
+
+.buttons {
+    width: 250px;
+
+    gap: 6px;
+
+    margin-top: 6px;
+}
+
+.buttons button {
+    padding: 8px 3px;
+
+    font-size: 12px;
+
+    border-radius: 10px;
+}
+
+
+/* پیام */
+
+#message {
+    min-height: 20px;
+
+    margin-top: 4px;
+
+    font-size: 14px;
 }
