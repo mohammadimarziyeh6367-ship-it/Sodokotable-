@@ -262,3 +262,305 @@ body {
         margin-top: 10px;
     }
 }
+/* ========================================
+   صفحه بازی
+======================================== */
+
+#game {
+    display: none;
+
+    width: 100%;
+    height: 100dvh;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px;
+
+    overflow: hidden;
+}
+
+
+/* عنوان بازی */
+
+.game-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.game-header h1 {
+    color: #7b35c8;
+    font-size: 27px;
+    margin-bottom: 5px;
+}
+
+#welcome {
+    color: #e83e8c;
+    font-size: 19px;
+}
+
+
+/* ========================================
+   جدول
+======================================== */
+
+.board {
+    width: min(82vw, 360px);
+    aspect-ratio: 1 / 1;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+
+    background: white;
+
+    border: 4px solid #6336a8;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+}
+
+
+/* خانه‌های جدول */
+
+.cell {
+    border: 1px solid #b8a5d6;
+
+    background: white;
+
+    font-size: clamp(30px, 9vw, 55px);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-family: Arial, sans-serif;
+
+    transition: 0.15s;
+}
+
+
+/* خطوط ضخیم پنجره‌های ۲×۲ */
+
+.cell:nth-child(2),
+.cell:nth-child(6),
+.cell:nth-child(10),
+.cell:nth-child(14) {
+    border-left: 3px solid #6336a8;
+}
+
+.cell:nth-child(n+5):nth-child(-n+8) {
+    border-top: 3px solid #6336a8;
+}
+
+
+/* خانه‌های ثابت */
+
+.cell.fixed {
+    background: #f0e7ff;
+
+    cursor: default;
+}
+
+
+/* خانه‌ای که دانش‌آموز انتخاب کرده */
+
+.cell.user-cell {
+    background: #fff8d8;
+}
+
+
+/* جواب درست */
+
+.cell.correct {
+    background: #d9f8df;
+
+    animation: correctAnimation 0.3s;
+}
+
+
+/* جواب اشتباه */
+
+.cell.wrong {
+    background: #ffdada;
+
+    animation: wrongAnimation 0.25s;
+}
+
+
+/* ========================================
+   شکل‌ها
+======================================== */
+
+.pieces {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 12px;
+
+    justify-content: center;
+}
+
+.piece {
+    width: 58px;
+    height: 58px;
+
+    padding: 0;
+
+    border: 3px solid transparent;
+
+    border-radius: 15px;
+
+    background: white;
+
+    font-size: 34px;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,.12);
+
+    cursor: pointer;
+
+    transition: .15s;
+}
+
+.piece.selected {
+    border-color: #e83e8c;
+
+    transform: translateY(-5px) scale(1.08);
+
+    background: #fff0f7;
+}
+
+
+/* ========================================
+   دکمه‌ها
+======================================== */
+
+.buttons {
+    display: flex;
+
+    gap: 10px;
+
+    width: min(82vw, 360px);
+
+    margin-top: 12px;
+}
+
+.buttons button {
+    flex: 1;
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 11px 5px;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+#check {
+    background: #35a853;
+}
+
+#newGame {
+    background: #7b35c8;
+}
+
+
+/* پیام */
+
+#message {
+    min-height: 28px;
+
+    margin-top: 8px;
+
+    text-align: center;
+
+    color: #e83e8c;
+
+    font-size: 17px;
+}
+
+
+/* ========================================
+   انیمیشن
+======================================== */
+
+@keyframes correctAnimation {
+
+    0% {
+        transform: scale(.8);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes wrongAnimation {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+
+/* ========================================
+   موبایل‌های کوچک
+======================================== */
+
+@media (max-height: 700px) {
+
+    .board {
+        width: min(70vw, 280px);
+    }
+
+    .piece {
+        width: 48px;
+        height: 48px;
+        font-size: 28px;
+    }
+
+    .game-header h1 {
+        font-size: 22px;
+    }
+
+    #welcome {
+        font-size: 16px;
+    }
+
+    .buttons button {
+        padding: 8px 4px;
+        font-size: 13px;
+    }
+
+    #message {
+        font-size: 14px;
+    }
+}
